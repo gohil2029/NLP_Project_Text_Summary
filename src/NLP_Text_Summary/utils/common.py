@@ -1,6 +1,6 @@
 import os
 import sys
-#from src.NLP_Text_Summary.logging import logger
+from src.NLP_Text_Summary.logging import logger
 import yaml
 from pathlib import Path
 from typing import Any
@@ -15,32 +15,36 @@ def sqare( a : int)-> int :
     return a * a
 
 
-print(sqare(5))
+print(sqare(5))    
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
     """reads yaml file and returns
-
-    Args:
-        path_to_yaml (str): path like input
-
-    Raises:
-        ValueError: if yaml file is empty
-        e: empty file
-
-    Returns:
-        ConfigBox: ConfigBox type
-    """
+    
+        Args:
+            path_to_yaml (str): path like input
+    
+        Raises:
+            ValueError: if yaml file is empty
+            e: empty file
+    
+        Returns:
+            ConfigBox: ConfigBox type
+        """
     try:
         with open(path_to_yaml) as yaml_file:
             content = yaml.safe_load(yaml_file)
-            logger.info(f"yaml file: {path_to_yaml} loaded successfully")
+            
+            # FIX: If yaml is empty or just comments, yaml.safe_load returns None
+            if content is None:
+                content = {}
+                
             return ConfigBox(content)
+            
     except BoxValueError:
-        raise ValueError("yaml file is empty")
+        raise ValueError(f"YAML file at {path_to_yaml} is empty or not formatted as a dictionary.")
     except Exception as e:
         raise e
-    
 
 
 @ensure_annotations

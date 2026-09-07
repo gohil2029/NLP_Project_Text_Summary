@@ -10,7 +10,7 @@ nltk
 tqdm
 PyYAML
 matplotlib
-#torch
+
 notebook
 boto3
 mypy-boto3-s3
@@ -19,5 +19,6 @@ ensure
 fastapi
 uvicorn
 Jinja2
+
 
 -e .

@@ -1,0 +1,6 @@
+key: value
+
+# If you are training a text summarizer, it usually looks like this:
+TrainingArguments:
+  num_train_epochs: 1
+  per_device_train_batch_size: 1
